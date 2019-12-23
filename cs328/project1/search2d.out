@@ -1,0 +1,380 @@
+Username:  rollers
+Date:      Mon Sep 30 22:15:16 EDT 2019
+ 
+*** compiling ***
+--- Running 1---
+ 
+
+Author: Seth Roller
+Lab: Search a 2-D array
+Will be given a sorted array and 
+a number n will be provided to search w/in said array
+
+
+Enter the name of a file: 
+You entered /home/mathcs/turnin/bracken/BS2d1.text
+
+Searching for 1
+found row 0 column 0
+
+Searching for 2
+found row 0 column 1
+
+Searching for 3
+found row 0 column 2
+
+Searching for 4
+found row 0 column 3
+
+Searching for 5
+found row 1 column 0
+
+Searching for 6
+found row 1 column 1
+
+Searching for 7
+found row 1 column 2
+
+Searching for 8
+found row 1 column 3
+
+Searching for 9
+found row 2 column 0
+
+Searching for 10
+found row 2 column 1
+
+Searching for 11
+found row 2 column 2
+
+Searching for 12
+found row 2 column 3
+
+Searching for 13
+found row 3 column 0
+
+Searching for 14
+found row 3 column 1
+
+Searching for 15
+found row 3 column 2
+
+Searching for 16
+found row 3 column 3
+
+Searching for 17
+element not found
+
+Searching for 0
+element not found
+
+--- Running again 2---
+ 
+
+Author: Seth Roller
+Lab: Search a 2-D array
+Will be given a sorted array and 
+a number n will be provided to search w/in said array
+
+
+Enter the name of a file: 
+You entered /home/mathcs/turnin/bracken/BS2d2.text
+
+Searching for 1
+found row 0 column 0
+
+Searching for 2
+found row 0 column 1
+
+Searching for 3
+found row 0 column 2
+
+Searching for 4
+found row 0 column 3
+
+Searching for 5
+found row 0 column 4
+
+Searching for 6
+found row 1 column 0
+
+Searching for 7
+found row 1 column 1
+
+Searching for 8
+found row 1 column 2
+
+Searching for 9
+found row 1 column 3
+
+Searching for 10
+found row 1 column 4
+
+Searching for 11
+found row 2 column 0
+
+Searching for 12
+found row 2 column 1
+
+Searching for 13
+found row 2 column 2
+
+Searching for 14
+found row 2 column 3
+
+Searching for 15
+found row 2 column 4
+
+Searching for 16
+found row 3 column 0
+
+Searching for 17
+found row 3 column 1
+
+Searching for 18
+found row 3 column 2
+
+Searching for 19
+found row 3 column 3
+
+Searching for 20
+found row 3 column 4
+
+Searching for 21
+found row 4 column 0
+
+Searching for 22
+found row 4 column 1
+
+Searching for 23
+found row 4 column 2
+
+Searching for 24
+found row 4 column 3
+
+Searching for 25
+found row 4 column 4
+
+Searching for 0
+element not found
+
+Searching for 28
+element not found
+
+--- Running again 3---
+ 
+
+Author: Seth Roller
+Lab: Search a 2-D array
+Will be given a sorted array and 
+a number n will be provided to search w/in said array
+
+
+Enter the name of a file: 
+You entered /home/mathcs/turnin/bracken/BS2d3.text
+
+Searching for 4
+found row 0 column 0
+
+Searching for 20
+found row 0 column 1
+
+Searching for 50
+found row 1 column 0
+
+Searching for 90
+found row 1 column 1
+
+Searching for 3
+element not found
+
+Searching for 10
+element not found
+
+Searching for 30
+element not found
+
+Searching for 60
+element not found
+
+Searching for 95
+element not found
+
+--- Running again 4---
+ 
+
+Author: Seth Roller
+Lab: Search a 2-D array
+Will be given a sorted array and 
+a number n will be provided to search w/in said array
+
+
+Enter the name of a file: 
+You entered /home/mathcs/turnin/bracken/BS2d4.text
+
+Searching for 1
+element not found
+
+Searching for 2
+element not found
+
+Searching for 3
+element not found
+
+Searching for 4
+element not found
+
+Searching for 5
+found row 0 column 0
+
+Searching for 6
+element not found
+
+Searching for 10
+found row 0 column 1
+
+Searching for 20
+found row 1 column 0
+
+Searching for 30
+found row 1 column 1
+
+Searching for 5
+found row 0 column 0
+
+Searching for 60
+element not found
+
+--- Running again 5---
+ 
+
+Author: Seth Roller
+Lab: Search a 2-D array
+Will be given a sorted array and 
+a number n will be provided to search w/in said array
+
+
+Enter the name of a file: 
+You entered /home/mathcs/turnin/bracken/BS2d5.text
+
+Searching for 10
+found row 0 column 0
+
+Searching for 20
+found row 0 column 1
+
+Searching for 30
+found row 0 column 2
+
+Searching for 40
+found row 0 column 3
+
+Searching for 50
+found row 1 column 0
+
+Searching for 60
+found row 1 column 1
+
+Searching for 70
+found row 1 column 2
+
+Searching for 80
+found row 1 column 3
+
+Searching for 90
+found row 2 column 0
+
+Searching for 100
+found row 2 column 1
+
+Searching for 200
+found row 2 column 2
+
+Searching for 300
+found row 2 column 3
+
+Searching for 400
+found row 3 column 0
+
+Searching for 500
+found row 3 column 1
+
+Searching for 600
+found row 3 column 2
+
+Searching for 700
+found row 3 column 3
+
+Searching for 800
+found row 4 column 0
+
+Searching for 900
+found row 4 column 1
+
+Searching for 1000
+found row 4 column 2
+
+Searching for 1100
+found row 4 column 3
+
+Searching for 5
+element not found
+
+Searching for 15
+element not found
+
+Searching for 25
+element not found
+
+Searching for 35
+element not found
+
+Searching for 45
+element not found
+
+Searching for 55
+element not found
+
+Searching for 65
+element not found
+
+Searching for 75
+element not found
+
+Searching for 85
+element not found
+
+Searching for 95
+element not found
+
+Searching for 105
+element not found
+
+Searching for 205
+element not found
+
+Searching for 305
+element not found
+
+Searching for 405
+element not found
+
+Searching for 505
+element not found
+
+Searching for 605
+element not found
+
+Searching for 705
+element not found
+
+Searching for 805
+element not found
+
+Searching for 905
+element not found
+
+Searching for 100005
+element not found
+
+ 

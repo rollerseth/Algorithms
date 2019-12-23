@@ -1,0 +1,230 @@
+/*
+#Filename: search2d.cpp
+
+#Author: Seth Roller
+
+#Date: 10/01/19
+
+#Program Name: search2d.cpp
+
+#Assignment Number: 1
+
+#Problem: Will be given an array of sorted data
+and the request is to search a 2D array in theta
+of logn + logm.
+
+#Flow: 
+the binary search function is first and 
+then the searching function narrows down
+the columns and performs binary search
+on said columns
+
+Resources: Foundations of Algorithms for the bsearch code
+
+I have thoroughly tested my code and it works properly 
+
+ */
+
+#include "iostream"
+#include "fstream"
+#include <assert.h>
+using namespace std;
+
+int const MAX = 100;
+
+//I got the recursive code for bsearch from the alg book
+void bsearch(int sorted[][MAX], int low, int high, int x, int row) {
+  //x is what we are searching for
+  
+  int mid;
+
+  if (low > high) {
+    cout << "element not found\n\n";
+    return;
+  }
+  
+  else {
+    mid = (low + high) / 2;
+    if (x == sorted[row][mid]) {
+      cout << "found row " << row << " column " << mid;
+      cout << "\n\n";
+      return;
+    }
+    else if (x < sorted[row][mid])
+      return bsearch(sorted, low, mid - 1, x, row);
+    else
+      return bsearch(sorted, mid + 1, high, x, row);
+    
+  }
+
+}
+
+void searching(int sortArray[][MAX], int n, int m, int x) {
+  //this will be where the print statement of
+  //whether or not it was found
+  
+  int m_mid = m / 2;
+  int low = 0;
+  int high = n - 1;
+
+  //narrowing down the columns
+  while (low+1 < high) {
+    int n_mid = (high + low) / 2;
+
+    if (sortArray[n_mid][m_mid] == x) {
+      cout << "found row " <<  n_mid << " column " << m_mid;
+      cout << "\n\n";
+      return;
+    }
+
+    else if (sortArray[n_mid][m_mid] > x)
+      high = n_mid;
+
+    else
+      low = n_mid;
+  }
+
+
+    
+  if (sortArray[low][m_mid] == x) {
+    cout << "found row " << low << " column " << m_mid;
+    cout << "\n\n";
+    return;
+  }
+
+  //if the low > high then use the high 
+  else if (low > high && sortArray[high][m - 1] >= x) {
+
+    if (x == sortArray[high][m_mid]) {
+      cout << "found row " << high << " column " << m_mid;
+      cout << "\n\n";
+      return;
+    }
+
+    else if (x > sortArray[high][m_mid])
+      bsearch(sortArray, m_mid+1, m - 1, x, high);
+
+    else
+      bsearch(sortArray, 0, m_mid - 1, x, high);
+      
+  }
+
+  //the following if else statements narrow down to the exact
+  //column if x is w/in the array
+  //if it's in the middle it's found otherwise perform bsearch
+  //on the array w/in the array
+  
+  //if low is equal to the size of the array or the following
+  //columns 0th position is greater than x
+  else if (low == (n - 1) || sortArray[low+1][0] > x) {
+
+    if (x == sortArray[low][m_mid]) {
+      cout << "found row " << low << " column " << m_mid;
+      cout << "\n\n";
+      return;
+    }
+
+    else if (x > sortArray[low][m_mid]) 
+      bsearch(sortArray, m_mid+1, m - 1, x, low);
+
+	
+    else if (x < sortArray[low][m_mid])
+      bsearch(sortArray, 0, m_mid - 1, x, low);
+
+  }
+
+  //else it's low + 1
+  else {
+      
+    if (x == sortArray[low + 1][m_mid]) {
+      cout << "found row " << low + 1 << " column " << m_mid;
+      cout << "\n\n";
+      return;
+    }
+
+    else if (x > sortArray[low + 1][m_mid])
+      bsearch(sortArray, m_mid, m - 1, x, low + 1);
+
+    else
+      bsearch(sortArray, 0, m_mid - 1, x, low + 1);
+	  
+  }
+
+}
+
+
+
+
+int main() {
+
+  cout << endl;
+  cout << "Author: Seth Roller\n";
+  cout << "Lab: Search a 2-D array\n";
+  cout << "Will be given a sorted array and \n";
+  cout << "a number n will be provided to search w/in said array\n";
+  cout << endl;
+  
+  cout << endl;
+  
+  string filename;
+
+  cout << "Enter the name of a file: ";
+  cin >> filename;
+  cout << endl;
+  cout << "You entered " << filename << endl << endl;
+
+  int data;
+  ifstream fin;
+  int i = 0;
+  int j = 0;
+  int n;
+  int m;
+  
+  fin.open(filename.c_str());
+  assert (fin.is_open());
+
+  while (i < 2) {
+    if (i == 0)
+      fin >> n;
+    else
+      fin >> m;
+    i++;
+  }
+
+  int theArray [n][MAX];
+  i = 0;
+  
+  while (true) {
+
+    if (i == n)
+      break;
+    fin >> data;
+    theArray[i][j] = data;
+
+    if (j == (m-1)) {
+      j = 0;
+      i++;
+    }
+    else
+      j++;
+    
+  }
+
+  //this will loop through until an end of file
+  //since everything read in past this is what
+  //is to be searched for
+  while (true) {
+
+    fin >> data;
+    if (fin.eof())
+      break;
+
+    //search
+    cout << "Searching for " << data << endl << endl;
+    searching(theArray, n, m,data);
+    
+    
+  }
+  
+  
+}

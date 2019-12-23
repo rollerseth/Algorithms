@@ -1,0 +1,291 @@
+/*
+#Filename: sort.cpp
+
+#Author: Seth Roller
+
+#Date: 12/03/19
+
+#Program Name: sort.cpp
+
+#Assignment Number: 4
+
+#Problem: Implementing merge and heap sort
+
+#Flow: The first functions are all related to heap
+sort and then the merge algorithm followed by the
+mergesort function. main follows all of this.
+
+#Sources: Foundations of Algorithms ch. 2, section 2
+for mergesort and ch.7 section 6.2 for heap sort
+
+I have thoroughly tested my code and it works properly 
+
+ */
+#include <iostream>
+#include <cassert>
+#include <fstream>
+#include <string>
+#include <sys/time.h>
+
+using namespace std;
+
+int const MAX = 500;
+
+int basicHeap = 0;
+int basicMerge = 1;
+int assignHeap = 0;
+int assignMerge = 0;
+
+struct heap
+{
+  int *S;
+  int heapsize;
+};
+
+
+void siftdown(heap *H, int i) {
+
+  int parent, largerchild;
+  int siftkey;
+  bool spotfound;
+
+  siftkey = H->S[i];
+  assignHeap++;
+  parent= i;
+  spotfound = false;
+  largerchild = 0;
+  while (2*parent < H->heapsize && !spotfound) {
+
+    if ((2*parent-1) < H->heapsize && H->S[2*parent] < H->S[2*parent+1])
+      largerchild = 2*parent+1;
+    else
+      largerchild = 2*parent;
+
+    basicHeap++;
+    
+    if (siftkey < H->S[largerchild]) {
+      basicHeap++;
+      assignHeap++;
+      H->S[parent] = H->S[largerchild];
+      parent = largerchild;
+    }
+    else
+      spotfound = true;
+    
+  }//end of while
+
+  assignHeap++;
+  H->S[parent] = siftkey;
+  
+}
+
+int root(heap *H) {
+
+  int keyout;
+
+  keyout = H->S[0];
+  assignHeap++;
+  H->S[0] = H->S[(H->heapsize)-1];
+  H->heapsize = H->heapsize - 1;
+  siftdown(H, 0);
+  return keyout;
+  
+}
+
+void makeheap(int count, heap *H) {
+
+  H->heapsize = count;
+  for (int i = (count/2)-1; i >= 0; i--)
+    siftdown(H, i);
+  
+}
+
+
+void removekeys(int count, heap *H, int *S) {
+  
+  for (int i = (count-1); i >= 0; i--) {
+    assignHeap++;
+    S[i] = root(H);
+  }
+  
+}
+
+
+void heapsort(int count, heap *H) {
+
+  makeheap(count,H);
+  removekeys(count, H, H->S);
+  
+}
+
+
+void mergeAlg(int h, int m, int U[], int V[], int *S) {
+
+  int i = 0;
+  int k = 0;
+  int j = 0;
+
+  while (i < h && j < m) {
+    
+    if (U[i] < V[j]) {
+      assignMerge++;
+      S[k] = U[i];
+      i++;
+    }
+
+    else {
+      S[k] = V[j];
+      assignMerge++;
+      j++;
+    }
+    
+    basicMerge++;
+    k++;
+    
+  }//end of while
+
+  if (i >= h) {
+    int temp = j;
+    for (int n = k; n < (h+m); n++) {
+      S[n] = V[temp];
+      assignMerge++;
+      temp++;
+    }
+  }
+  
+  else {
+    int temp = i;
+    for (int n = k; n < (h+m); n++) {
+      S[n] = U[temp];
+      assignMerge++;
+      temp++;
+    }
+  }
+  
+}
+
+
+void mergesort(int count, int *mergeArray) {
+
+  if (count > 1) {
+    int h = count / 2;
+    int m = count - h;
+
+    int *U = new int[h];
+    int *V = new int[m];
+
+    for (int i = 0; i < h; i++) {
+      U[i] = mergeArray[i];
+      assignMerge++;
+    }
+   
+    for (int i = h; i < count; i++) {
+      V[i-h] = mergeArray[i];
+      assignMerge++;
+    }
+    
+    mergesort(h, U);
+    mergesort(m, V);
+    mergeAlg(h, m, U, V, mergeArray);
+
+    delete[] U;
+    delete[] V;
+  }
+  
+}
+
+
+int main() {
+
+  string filename;
+  ifstream fin;
+
+  int data;
+  int index = 0;
+  
+  //int *heap = new int[MAX];
+  heap *theHeap = new heap;
+  theHeap->S = new int[MAX];
+  int *merge = new int[MAX];
+  
+  cout << "Name: Seth Roller" << endl;
+  cout << "Lab: Merge and Heap Sort\n";
+  cout << "Problem: Implementing Merge and Heap sort from\n";
+  cout << "the Foundations of Algorithms book.\n\n";
+  
+  cout << "Please enter the name of a file: ";
+  cin >> filename;
+  fin.open(filename.c_str());
+  assert (fin.is_open());
+
+  cout << "\nYou entered " << filename;
+  cout << endl;
+
+  //read data in
+  cout << "array contents:\n";
+  
+  while (true) {
+    fin >> data;
+    if (fin.eof())
+      break;
+    theHeap->S[index] = data;
+    merge[index] = data;
+    index++;
+    cout << data << endl;
+  }
+
+  cout << endl;
+  
+  struct timespec startH, endH;
+  clock_gettime(CLOCK_REALTIME,&startH);
+  heapsort(index, theHeap);
+  clock_gettime(CLOCK_REALTIME,&endH);
+  
+  cout << "after heap sort\n";
+  for (int i = 0; i < index; i++)
+    cout << theHeap->S[i] << endl;
+
+  cout << "\nresults for heap sort\n";
+  cout << "start s: " << startH.tv_sec << endl;
+  cout << "start ns: " << startH.tv_nsec << endl;
+
+  cout << "end s: " << endH.tv_sec << endl;
+  cout << "end ns: " << endH.tv_nsec << endl;
+
+  cout << "difference s: " << endH.tv_sec-startH.tv_sec << endl;
+  cout << "difference ns: " << endH.tv_nsec-startH.tv_nsec << endl;
+
+  cout << "\nn: " << index << endl;
+  cout << "basic operations: " << basicHeap << endl;
+  cout << "num assignments: " << assignHeap << endl;
+  cout << endl;
+  
+  
+  struct timespec startM, endM;
+  clock_gettime(CLOCK_REALTIME,&startM);
+  mergesort(index, merge);
+  clock_gettime(CLOCK_REALTIME,&endM);
+
+  cout << "after merge sort\n";
+  for (int i = 0; i < index; i++)
+    cout << merge[i] << endl;
+
+  cout << "\nresults for merge sort\n";
+  cout << "start s: " << startM.tv_sec << endl;
+  cout << "start ns: " << startM.tv_nsec << endl;
+
+  cout << "end s: " << endM.tv_sec << endl;
+  cout << "end ns: " << endM.tv_nsec << endl;
+
+  cout << "difference s: " << endM.tv_sec-startM.tv_sec << endl;
+  cout << "difference ns: " << endM.tv_nsec-startM.tv_nsec << endl;
+
+  cout << "\nn: " << index << endl;
+  cout << "basic operations: " << basicMerge << endl;
+  cout << "num assignments: " << assignMerge << endl;
+  
+  //deallocate
+  delete[] merge;
+  delete[] theHeap->S;
+  delete theHeap;
+}

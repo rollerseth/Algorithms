@@ -1,0 +1,103 @@
+Username:  rollers
+Date:      Thu Nov 7 00:01:23 EST 2019
+ 
+*** compiling ***
+--- Running 1---
+ 
+Author: Seth Roller
+Lab: SumofSubsets
+Problem: Implementing sum of subsets from
+the Foundations of Algorithms book.
+
+Please enter the name of a file: You entered /home/mathcs/turnin/bracken/ssinput1.test
+n is 6
+W is 52
+2 has been processed
+10 has been processed
+13 has been processed
+17 has been processed
+22 has been processed
+42 has been processed
+
+Calling sum_of_subsets
+10 42 sum to 52
+13 17 22 sum to 52
+promising function called 59
+--- Running again 2---
+ 
+Author: Seth Roller
+Lab: SumofSubsets
+Problem: Implementing sum of subsets from
+the Foundations of Algorithms book.
+
+Please enter the name of a file: You entered /home/mathcs/turnin/bracken/ssinput2.test
+n is 8
+W is 75
+1 has been processed
+1 has been processed
+1 has been processed
+1 has been processed
+1 has been processed
+1 has been processed
+1 has been processed
+1 has been processed
+
+Calling sum_of_subsets
+promising function called 1
+--- Running again 3---
+ 
+Author: Seth Roller
+Lab: SumofSubsets
+Problem: Implementing sum of subsets from
+the Foundations of Algorithms book.
+
+Please enter the name of a file: You entered /home/mathcs/turnin/bracken/ssinput3.test
+n is 5
+W is 21
+5 has been processed
+6 has been processed
+10 has been processed
+11 has been processed
+16 has been processed
+
+Calling sum_of_subsets
+5 6 10 sum to 21
+5 16 sum to 21
+10 11 sum to 21
+promising function called 25
+--- Running again 4---
+ 
+Author: Seth Roller
+Lab: SumofSubsets
+Problem: Implementing sum of subsets from
+the Foundations of Algorithms book.
+
+Please enter the name of a file: You entered /home/mathcs/turnin/bracken/ssinput4.test
+n is 3
+W is 6
+2 has been processed
+4 has been processed
+5 has been processed
+
+Calling sum_of_subsets
+2 4 sum to 6
+promising function called 7
+--- Running again 5---
+ 
+Author: Seth Roller
+Lab: SumofSubsets
+Problem: Implementing sum of subsets from
+the Foundations of Algorithms book.
+
+Please enter the name of a file: You entered /home/mathcs/turnin/bracken/ssinput5.test
+n is 4
+W is 13
+3 has been processed
+4 has been processed
+5 has been processed
+6 has been processed
+
+Calling sum_of_subsets
+3 4 6 sum to 13
+promising function called 15
+ 

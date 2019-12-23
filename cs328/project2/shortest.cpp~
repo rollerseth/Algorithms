@@ -1,0 +1,354 @@
+/*
+#Filename: shortest.cpp
+
+#Author: Seth Roller
+
+#Date: 10/31/19
+
+#Program Name: assign2.cpp
+
+#Assignment Number: 2
+
+#Problem: Will be utilizing Floyds and Dijkstra's 
+shortest paths for an entered adjcency matrix 
+
+#Flow: 
+First is the constructor then deconstructor,
+followed by the dijkstra and floyd functions.
+
+#Sources: Foundations of Algorithms ch. 3 and 4
+-Used this for the algorithms
+
+http://www.cplusplus.com/forum/beginner/38226/
+-Used this as a reference for how to delete 
+& initialize a 2d array
+ 
+I have thoroughly tested my code and it works properly 
+
+ */
+#include <stddef.h>  // for NULL
+#include <iostream>
+#include "shortest.h"
+#include <string.h>
+
+shortest::shortest() {
+
+  cout << "Constructor executing\n";
+  int vert = 0;
+  int parent;
+  int child;
+  int cost;
+  string answer;
+  F= NULL;
+
+  //number of vert
+  while (true) {
+    cout << endl;
+    cout << "Will start creating the graph" << endl;
+    cout << "Please enter the number of vertices: ";
+    cin >> vert;
+    
+    if (cin.good() && vert > 0) {
+      cout << endl; // for turnin                                        
+      cout << "You entered " << vert << endl << endl;
+      break;
+    }
+    
+    cin.clear();
+    cin.ignore(120, '\n');
+
+  }
+
+  //initalize the priv vars
+  numofvert = vert;
+
+  //create pointers that are indexed
+  P = new int*[vert];
+  D = new int*[vert];
+  W = new int*[vert];
+
+  for (int i = 0; i < vert; i++) {
+    //initialize those pters to pt to new arrays
+    P[i] = new int[FIN];
+    W[i] = new int[FIN];
+    D[i] = new int[FIN];
+    for (int j = 0; j < vert; j++) {
+      if (i == j)
+	W[i][j] = 0;
+      else
+	W[i][j] = FIN;
+    }
+  }
+
+  //do the Y or N answers
+  while (true) {
+
+    cout << endl;
+    cout << "Enter Y if you have a node to enter, N if";
+    cout << " you are done: \n";
+    
+    cin >> answer;
+
+    if (cin.good() && answer == "y") {
+
+      //do the parent
+      while (true) {
+    
+	cout << "Enter an integer from 1 to " << vert << " for";
+	cout << " the parent: ";
+	cin >> parent;
+
+	if (cin.good() && parent >= 1 && parent <= numofvert) {
+	  cout << endl; // for turnin                                        
+	  cout << "You entered for the parent: " << parent << endl;
+	  break;
+	}
+
+      }
+
+      //do the child
+      while (true) {
+	cout << endl;
+	cout << "Enter an integer from 1 to " << vert << " for";
+	cout << " the child: ";
+	cin >> child;
+
+	if (cin.good() && child >= 1 && child <= numofvert) {
+	  cout << endl; // for turnin                                        
+	  cout << "You entered for the child: " << child << endl;
+	  break;
+	}
+      }
+
+      //do the cost
+      while (true) {
+	cout << endl;
+	cout << "Enter the cost of the edge: ";
+	cin >> cost;
+
+	if (cin.good() && cost >= 1) {
+	  cout << endl; // for turnin                                        
+	  cout << "Cost is: " << cost << endl;
+	  break;
+	}	
+      }
+
+      W[parent-1][child-1] = cost;
+      
+    }
+
+    //if exiting
+    else if (cin.good() && answer == "n")
+      break;
+
+    //else error
+    else {
+      cin.clear();
+      cin.ignore(120, '\n');
+      cout << "You entered "<< answer << endl;
+      cout << "Enter Y or N\n\n";
+    }
+  }
+
+  cout << endl;
+  cout << "Constructor checking the adjacency matrix\n";
+
+  //print out W
+  for (int i = 0; i < vert; i++)
+    for (int j = 0; j < vert; j++) {
+      if (j == (vert-1))
+	cout << W[i][j] << endl;
+      else
+	cout << W[i][j] << "\t";
+    }
+    
+}
+
+
+shortest::~shortest() {
+  cout << "Deconstructor executing\n";
+  //delete again to make sure
+  delete F;
+  F=NULL;
+
+  //delete the arrays
+  //referenced the size above on
+  //the delete[] syntax
+  for (int i = 0; i < numofvert; i++) {
+    delete[] D[i];
+    delete[] P[i];
+    delete[] W[i];
+  }
+  delete[] D;
+  delete[] P;
+  delete[] W;
+  
+}
+
+
+void shortest::Dijkstra(int V) {
+
+  cout << "calculating shortest path from " << V;
+  cout << " to all other vertices\n";
+  
+    
+  int vnear = 0;
+  int touch[numofvert];
+  int length[numofvert];
+  edgenode *temp;
+  int min = FIN;
+    
+
+  //first for
+  for (int i = 0; i < numofvert; i++) {
+    if (i != (V-1)) {
+      touch[i] = V;
+      length[i] = W[V-1][i];
+    }
+  }//end 1st
+
+  
+  int count = 0;
+  //second for
+  while (count < numofvert-1) {
+    min = FIN;
+    
+    for (int i = 0; i < numofvert; i++) {    //3rd for      
+      if (0 < length[i] && length[i] < min && i != (V-1)) {
+	min = length[i];
+	vnear = i;
+      }//end 3rd
+    }
+    
+
+    if (min != FIN) {
+      edgenode *insert = new edgenode;   
+      //new node
+      
+      if (F != NULL) {	
+	insert->e1 = touch[vnear];
+	insert->e2 = vnear+1;
+	insert->next = F;
+	F = insert;
+      }
+      else {
+	insert->e1 = touch[vnear];
+	insert->e2 = vnear+1;
+	insert->next = NULL;
+	F = insert;
+      }
+    }
+    
+    //4th for
+    if (vnear != -1) {
+    for (int k = 0; k < numofvert; k++) 
+      if (length[vnear] + W[vnear][k] < length[k] && k != (V-1)
+	  && length[k]!=-1) {
+	
+	length[k] = length[vnear] + W[vnear][k];
+	touch[k] = vnear+1;
+	
+      }//end 4th
+    }
+    length[vnear] = -1;
+    vnear = -1;
+    count++;
+  }//end 2nd
+
+  temp = F;
+  cout << "Dijkstra complete F ...\n";
+  while (temp != NULL) {
+    cout << "V" << temp->e1;
+    cout << " V" << temp->e2;
+    cout << endl;
+    temp = temp->next;
+    //will delete right after printed
+    delete F;
+    F = temp;
+  }
+
+  //delete final F
+  delete F;
+  F=NULL;
+  
+  cout << endl;
+    
+  cout << "Touch = " << endl;
+  for (int i = 0; i < numofvert; i++) 
+    if (i != (V-1))
+      cout  << i+1 << "  " << touch[i] << endl;
+
+}
+
+
+void shortest::FloydGen() {
+  Floyd();
+}
+
+
+int shortest::getVert() {
+  return numofvert;
+}
+
+
+void shortest::Floyd() {
+
+  cout << "Performing Floyd's" << endl;
+  
+  for (int i = 0; i < numofvert; i++) 
+    for (int j = 0; j < numofvert; j++) {
+      P[i][j] = 0;
+      D[i][j] = W[i][j];
+    }
+
+  for(int k = 0; k < numofvert; k++)
+    for(int i = 0; i <numofvert; i++)
+      for(int j = 0; j < numofvert; j++)
+	if ((D[i][k]+D[k][j]) < D[i][j]) {
+	  P[i][j] = k+1;
+	  D[i][j] = D[i][k]+D[k][j];
+	}
+
+  
+  cout << endl;
+  cout << "D=\n";
+  for (int h = 0; h < numofvert; h++)
+    for (int d = 0; d < numofvert; d++) {
+
+      if (d == (numofvert-1))
+	cout << D[h][d] << endl;
+      else
+	cout << D[h][d] << "\t";
+    }
+  cout << endl;
+
+  cout << "P=\n";
+  for (int b = 0; b < numofvert; b++)
+    for (int a = 0; a < numofvert; a++) {
+      
+      if (a == (numofvert-1))
+	cout << P[b][a] << endl;
+      else
+	cout << P[b][a] << "\t";
+    }
+  
+  cout << endl;
+  cout << "The paths\n";
+  for (int i = 0; i < numofvert; i++)
+    for (int j = 0; j < numofvert; j++) {
+      cout << "\ncalling path " << i+1 << " " << j+1 << endl;
+      path(i, j);
+    }
+  cout << endl << "Floyd 2 Complete\n";
+
+}
+
+void shortest::path(int q, int r) {
+
+  if (P[q][r] != 0) {
+      path(q, P[q][r]-1);
+      cout << "v" << P[q][r];
+      path(P[q][r]-1, r);
+    }
+ 
+}
